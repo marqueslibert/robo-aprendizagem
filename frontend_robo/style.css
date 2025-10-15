@@ -1,0 +1,108 @@
+/* Importando uma fonte bonita para começar */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+/* --- Estilos do Robô --- */
+#robot-container {
+    margin-bottom: 40px;
+}
+
+#robot {
+    width: 60px; /* Largura do corpo */
+    height: 100px; /* Altura do corpo */
+    border: 4px solid #aaa; /* Cor do contorno inicial */
+    border-radius: 15px 15px 0 0; /* Bordas arredondadas no topo */
+    position: relative; /* Necessário para posicionar a cabeça */
+    transition: border-color 0.5s ease; /* Animação suave da cor */
+}
+
+/* Criando a cabeça do robô usando um pseudo-elemento */
+#robot::before {
+    content: '';
+    width: 80px;
+    height: 80px;
+    border: 4px solid #aaa;
+    border-radius: 50%; /* Um círculo perfeito */
+    position: absolute;
+    top: -50px; /* Posição acima do corpo */
+    left: -14px;
+    background-color: #f0f2f5; /* Fundo igual ao da página para parecer vazado */
+    transition: border-color 0.5s ease;
+}
+
+/* Classe que será adicionada via JavaScript no acerto */
+.robot-energized {
+    border-color: #4CAF50 !important; /* Verde para o acerto */
+}
+.robot-energized::before {
+    border-color: #4CAF50 !important;
+}
+
+/* --- Estilos do Quiz --- */
+.quiz-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 500px;
+}
+
+#options-container button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#options-container button:hover {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+}
+
+#feedback-text {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#next-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#next-button:hover {
+    background-color: #0056b3;
+}
+
+/* Classe utilitária para esconder elementos */
+.hidden {
+    display: none;
+}
