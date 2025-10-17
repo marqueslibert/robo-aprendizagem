@@ -1,4 +1,4 @@
-// --- 1. REFERÊNCIAS AOS ELEMENTOS ---
+// --- 1. REFERÊNCIAS AOS ELEMENTOS --- ?
 // Nenhuma mudança aqui
 const questionTextElement = document.getElementById('question-text');
 const optionsContainerElement = document.getElementById('options-container');
@@ -94,6 +94,41 @@ async function startQuiz() {
         questionTextElement.textContent = "Oops! Não conseguimos carregar o quiz. Tente novamente mais tarde.";
     }
 }
+
+// --- 6. CÓDIGO NOVO PARA SUGESTÕES ---
+const sugestoesBtn = document.getElementById('buscar-sugestoes-btn');
+const sugestoesDiv = document.getElementById('sugestoes-div');
+
+sugestoesBtn.addEventListener('click', async () => {
+    const userId = 1; // Vamos usar Alice (ID 1) como exemplo
+    sugestoesDiv.innerHTML = '<p>Buscando sugestões...</p>';
+
+    try {
+        // A URL corresponde ao novo endpoint que criamos
+        const response = await fetch(`http://localhost:3000/api/sugestoes/${userId}`);
+        if (!response.ok) {
+            throw new Error('Falha na resposta do servidor.');
+        }
+        const sugestoes = await response.json();
+
+        // Limpa a div e exibe as sugestões
+        sugestoesDiv.innerHTML = '';
+        if (sugestoes.length === 0) {
+            sugestoesDiv.innerHTML = '<p>Você já está apto a iniciar todos os conceitos disponíveis!</p>';
+        } else {
+            const lista = document.createElement('ul');
+            sugestoes.forEach(sugestao => {
+                const item = document.createElement('li');
+                item.textContent = `${sugestao.conceptName} (Trilha: ${sugestao.trackName})`;
+                lista.appendChild(item);
+            });
+            sugestoesDiv.appendChild(lista);
+        }
+    } catch (error) {
+        console.error('Erro ao buscar sugestões:', error);
+        sugestoesDiv.innerHTML = '<p>Não foi possível carregar as sugestões no momento.</p>';
+    }
+});
 
 // Chamamos a função principal para dar início a tudo!
 startQuiz();
